@@ -14,15 +14,25 @@ class LaundrySpec extends ObjectBehavior
         $this->shouldHaveType('Demo\Laundry');
     }
 
-    function it_adds_clothes(Person $person, Clothes $clothes)
+    function it_adds_clothes(Person $person)
     {
-        $this->addClothes($person, $clothes);
-        $this->getClothes($person)->shouldBeArray();
+        $this->addClothes($person, array('Shirt', 'Trousers'));
+
+        $person_clothes = $this->getPersonClothes($person);
+        $person_clothes[1]->shouldBe('Trousers');
     }
 
-    function it_gets_clothes(Person $person, Clothes $clothes)
+    function it_gets_clothes(Person $person)
     {
-        $this->addClothes($person, $clothes);
-        $this->getClothes($person)->shouldBeArray();
+        $this->addClothes($person, array('Shirt'));
+
+        $person_clothes = $this->getPersonClothes($person);
+        $person_clothes[0]->shouldBe('Shirt');
+    }
+
+    function it_counts_person_clothes(Person $person)
+    {
+        $this->addClothes($person, array('Hat', 'TShirt'));
+        $this->countPersonClothes($person)->shouldReturn(2);
     }
 }

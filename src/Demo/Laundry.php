@@ -4,15 +4,43 @@ namespace Demo;
 
 class Laundry
 {
+    /**
+     * @var array
+     */
     private $clothes = array();
 
-    public function addClothes(Person $person, Clothes $clothes)
+    /**
+     * @param Person $person
+     * @param array $clothes
+     */
+    public function addClothes(Person $person, array $clothes)
     {
-        $this->clothes[$person->getId()][] = $clothes;
+        $this->clothes[$person->getId()] = $clothes;
     }
 
-    public function getClothes(Person $person)
+    /**
+     * @return array
+     */
+    public function getClothes()
+    {
+        return $this->clothes;
+    }
+
+    /**
+     * @param Person $person
+     * @return array
+     */
+    public function getPersonClothes(Person $person)
     {
         return $this->clothes[$person->getId()];
+    }
+
+    /**
+     * @param Person $person
+     * @return int
+     */
+    public function countPersonClothes(Person $person)
+    {
+        return count($this->clothes[$person->getId()]);
     }
 }
