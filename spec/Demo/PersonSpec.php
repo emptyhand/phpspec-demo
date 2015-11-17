@@ -37,15 +37,17 @@ class PersonSpec extends ObjectBehavior
         $this->sendDirtyClothesToLaundry($laundry)->shouldReturn(1);
     }
 
-    function it_gets_clean_clothes_from_laundry(Clothes $clothes, Laundry $laundry)
+    function it_gets_clean_clothes_from_laundry(Clothes $clothes)
     {
+        $laundry = new Laundry();
+
         $this->addDirtyClothes($clothes);
         $this->addDirtyClothes($clothes);
 
         $this->sendDirtyClothesToLaundry($laundry)->shouldReturn(2);
 
-        $clothes = $this->getCleanClothesFromLaundry($laundry);
-        //$clothes[0]->shouldBe(null);
+        $cleaned_clothes = $this->getCleanClothesFromLaundry($laundry);
+        $cleaned_clothes[0]->shouldBe($clothes);
     }
 
     function it_counts_money()
