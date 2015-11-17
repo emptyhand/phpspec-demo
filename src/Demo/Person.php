@@ -5,6 +5,11 @@ namespace Demo;
 class Person
 {
     /**
+     * @var Laundry
+     */
+    private $laundry;
+
+    /**
      * @var array
      */
     private $money = array();
@@ -13,6 +18,28 @@ class Person
      * @var array
      */
     private $dirtyClothes = array();
+
+
+    public function __construct($laundry)
+    {
+        $this->laundry = $laundry;
+    }
+
+    /**
+     * @return Laundry
+     */
+    public function getLaundry()
+    {
+        return $this->laundry;
+    }
+
+    /**
+     * @param Laundry $laundry
+     */
+    public function setLaundry($laundry)
+    {
+        $this->laundry = $laundry;
+    }
 
     /**
      * @return int - number off dirty clothes
@@ -25,7 +52,7 @@ class Person
     /**
      * @param Clothes $clothes
      */
-    public function addDirtyClothes(Clothes $clothes)
+    public function addDirtyClothes($clothes)
     {
         $this->dirtyClothes[] = $clothes;
     }
@@ -47,25 +74,23 @@ class Person
     }
 
     /**
-     * @param Laundry $laundry
      * @return int
      */
-    public function sendDirtyClothesToLaundry(Laundry $laundry)
+    public function sendDirtyClothesToLaundry()
     {
         if($dirtyClothes = $this->getDirtyClothes()) {
-            $laundry->addClothes($this, $dirtyClothes);
+            $this->getLaundry()->addClothes($this, $dirtyClothes);
             return count($dirtyClothes);
         }
         return 0;
     }
 
     /**
-     * @param Laundry $laundry
      * @return mixed
      */
-    public function getCleanClothesFromLaundry(Laundry $laundry)
+    public function getCleanClothesFromLaundry()
     {
-        return $laundry->getPersonClothes($this);
+        return $this->getLaundry()->getPersonClothes($this);
     }
 
     /**

@@ -11,6 +11,12 @@ use Prophecy\Argument;
 
 class PersonSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $laundry = new Laundry();
+        $this->beConstructedWith($laundry);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Demo\Person');
@@ -39,14 +45,12 @@ class PersonSpec extends ObjectBehavior
 
     function it_gets_clean_clothes_from_laundry(Clothes $clothes)
     {
-        $laundry = new Laundry();
-
         $this->addDirtyClothes($clothes);
         $this->addDirtyClothes($clothes);
 
-        $this->sendDirtyClothesToLaundry($laundry)->shouldReturn(2);
+        $this->sendDirtyClothesToLaundry()->shouldReturn(2);
 
-        $cleaned_clothes = $this->getCleanClothesFromLaundry($laundry);
+        $cleaned_clothes = $this->getCleanClothesFromLaundry();
         $cleaned_clothes[0]->shouldBe($clothes);
     }
 
